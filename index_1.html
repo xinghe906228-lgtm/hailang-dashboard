@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>海浪品类财务数据系统 2025 vs 2026</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0D1117;color:#E6EDF3;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;font-size:13px}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:#161B22}
+::-webkit-scrollbar-thumb{background:#30363D;border-radius:3px}
+a,button{cursor:pointer}
+.header{background:#161B22;border-bottom:1px solid #30363D;padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:52px;position:sticky;top:0;z-index:100}
+.header-title{display:flex;align-items:center;gap:12px;font-weight:800;font-size:15px}
+.dot{width:8px;height:8px;border-radius:50%;background:#58A6FF;box-shadow:0 0 8px #58A6FF}
+.tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;letter-spacing:.4px}
+.nav{background:#161B22;border-bottom:1px solid #30363D;display:flex;overflow-x:auto;padding:0 20px}
+.nav::-webkit-scrollbar{height:0}
+.nav-btn{padding:13px 15px;border:none;background:transparent;color:#8B949E;font-size:12px;white-space:nowrap;border-bottom:2px solid transparent;transition:all .15s;font-family:inherit}
+.nav-btn.active{color:#58A6FF;border-bottom-color:#58A6FF;font-weight:700}
+.nav-btn:hover{color:#E6EDF3}
+.content{padding:20px;max-width:1400px;margin:0 auto}
+.section-header{border-bottom:1px solid #30363D;padding-bottom:10px;margin-bottom:18px}
+.section-header h2{color:#58A6FF;font-size:15px;font-weight:700}
+.section-header p{color:#8B949E;font-size:11px;margin-top:4px}
+.page{display:none}.page.active{display:block}
+.card{background:#161B22;border:1px solid #30363D;border-radius:10px;padding:16px}
+.card-title{font-weight:700;font-size:13px;margin-bottom:12px;color:#E6EDF3}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.flex{display:flex;gap:12px;flex-wrap:wrap}
+.mb16{margin-bottom:16px}
+.mb20{margin-bottom:20px}
+.kpi-card{background:#161B22;border:1px solid #30363D;border-radius:10px;padding:16px 18px;flex:1;min-width:180px}
+.kpi-label{color:#8B949E;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.kpi-val{font-size:22px;font-weight:800;color:#E6EDF3}
+.kpi-chg{font-size:12px;font-weight:700;margin-left:8px}
+.kpi-prev{color:#8B949E;font-size:11px;margin-top:4px}
+.green{color:#52C37F}.red{color:#E05454}.blue{color:#58A6FF}.muted{color:#8B949E}.y25c{color:#5B8DB8}.y26c{color:#E07B54}
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{padding:9px 12px;font-size:10px;font-weight:600;color:#8B949E;background:#1C2128;white-space:nowrap}
+.tbl td{padding:8px 12px;font-size:11px;border-top:1px solid #30363D}
+.tbl tr:nth-child(even) td{background:#0D1117}
+.tbl .mono{font-family:monospace}
+.tbl th.l,.tbl td.l{text-align:left}
+.tbl th.r,.tbl td.r{text-align:right}
+.tbl th.c,.tbl td.c{text-align:center}
+/* chart canvas wrapper */
+.chart-wrap{position:relative;width:100%}
+canvas{display:block}
+/* mini stat box */
+.stat-box{background:#0D1117;border-radius:6px;padding:7px 10px}
+.stat-label{color:#8B949E;font-size:10px;margin-bottom:2px}
+.stat-val{font-weight:700;font-size:12px}
+/* category card */
+.cat-card{background:#161B22;border:1px solid #30363D;border-radius:10px;padding:15px;position:relative;overflow:hidden}
+.cat-card-bar{position:absolute;top:0;left:0;right:0;height:3px}
+.btn-group{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.btn-pill{padding:6px 16px;border-radius:20px;border:1px solid #30363D;background:transparent;color:#8B949E;font-size:12px;font-weight:600;font-family:inherit}
+.btn-pill.active{border-color:#58A6FF;background:rgba(88,166,255,.13);color:#58A6FF}
+.tooltip-div{position:fixed;background:#1C2128;border:1px solid #30363D;border-radius:8px;padding:10px 14px;pointer-events:none;z-index:999;font-size:12px;display:none;min-width:140px}
+</style>
+</head>
+<body>
+
+<div class="tooltip-div" id="tooltip"></div>
+
+<div class="header">
+  <div class="header-title">
+    <div class="dot"></div>
+    海浪品类财务数据系统
+    <span class="tag" style="background:rgba(139,148,158,.1);color:#8B949E;border:1px solid rgba(139,148,158,.2)">2025 vs 2026 · 淘天 · 2月</span>
+  </div>
+  <div style="display:flex;gap:6px">
+    <span class="tag" style="background:rgba(91,141,184,.1);color:#5B8DB8;border:1px solid rgba(91,141,184,.2)">耳塞（合并）</span>
+    <span class="tag" style="background:rgba(224,123,84,.1);color:#E07B54;border:1px solid rgba(224,123,84,.2)">浮板（合并）</span>
+    <span class="tag" style="background:rgba(88,166,255,.1);color:#58A6FF;border:1px solid rgba(88,166,255,.2)">鼻夹</span>
+  </div>
+</div>
+
+<div class="nav" id="nav"></div>
+<div id="pages"></div>
+
+<script>
+// ═══════════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════════
+const RAW25 = [
+  {cat:"成人耳塞",group:"耳塞",sales:44059.27,cost:6606.42,gp:32384.08,sfTotal:22404.63,adv:6643.88,taxFee:2909.46,otherPromo:1529.26,netGP:9979.45,mgmt:9325.38,netProfit:654.07,logistics:6372.96,salary:4814.02,pkg:806.75,rent:1523.49,express:2825.22,csSalary:1352.89,teamSalary:3461.12,stock:10410},
+  {cat:"儿童耳塞",group:"耳塞",sales:168.28,cost:49.64,gp:99.28,sfTotal:119.75,adv:15.48,taxFee:11.11,otherPromo:4.85,netGP:-20.47,mgmt:35.62,netProfit:-56.09,logistics:69.38,salary:18.39,pkg:8.78,rent:16.59,express:30.76,csSalary:5.17,teamSalary:13.22,stock:10410},
+  {cat:"鼻夹",group:"鼻夹",sales:24862.15,cost:4455.11,gp:17546.79,sfTotal:13671.49,adv:4705.37,taxFee:1641.78,otherPromo:856.72,netGP:3875.3,mgmt:5262.21,netProfit:-1386.91,logistics:3677.09,salary:2716.5,pkg:465.48,rent:879.03,express:1630.11,csSalary:763.42,teamSalary:1953.07,stock:6096},
+  {cat:"A字板",group:"浮板",sales:1853.77,cost:501.2,gp:1139.3,sfTotal:1132.22,adv:491.24,taxFee:122.41,otherPromo:152.23,netGP:7.08,mgmt:392.36,netProfit:-385.28,logistics:158.58,salary:202.55,pkg:20.07,rent:37.91,express:70.3,csSalary:56.92,teamSalary:145.63,stock:2137},
+  {cat:"背漂",group:"浮板",sales:759.12,cost:210.23,gp:461.56,sfTotal:240.64,adv:3.83,taxFee:50.13,otherPromo:21.87,netGP:220.93,mgmt:160.67,netProfit:60.25,logistics:79.29,salary:82.94,pkg:10.04,rent:18.95,express:35.15,csSalary:23.31,teamSalary:59.63,stock:2137},
+  {cat:"漂浮袋",group:"其他",sales:2949.06,cost:736.98,gp:1872.81,sfTotal:1286.71,adv:557.07,taxFee:194.74,otherPromo:84.96,netGP:586.1,mgmt:624.18,netProfit:-38.08,logistics:118.94,salary:322.22,pkg:15.06,rent:28.43,express:52.73,csSalary:90.55,teamSalary:231.67,stock:4451},
+  {cat:"潜水装备",group:"其他",sales:1385.14,cost:336.43,gp:889.36,sfTotal:316.41,adv:0,taxFee:91.47,otherPromo:39.9,netGP:572.96,mgmt:293.17,netProfit:279.78,logistics:19.82,salary:151.34,pkg:2.51,rent:4.74,express:8.79,csSalary:42.53,teamSalary:108.81,stock:4451},
+  {cat:"沙滩鞋",group:"其他",sales:139.23,cost:31.91,gp:91.3,sfTotal:38.8,adv:0,taxFee:9.19,otherPromo:4.01,netGP:52.5,mgmt:29.47,netProfit:23.03,logistics:9.91,salary:15.21,pkg:1.25,rent:2.37,express:4.39,csSalary:4.28,teamSalary:10.94,stock:4451},
+];
+const RAW26 = [
+  {cat:"成人耳塞",group:"耳塞",sales:32898.72,cost:5152.25,gp:23961.67,sfTotal:23535.38,adv:11827.87,taxFee:3190.97,otherPromo:1376.3,netGP:426.28,mgmt:7099.79,netProfit:-6673.51,logistics:4394.27,salary:3326.89,pkg:702.67,rent:907.35,express:1511.29,csSalary:998.67,teamSalary:2328.21,stock:26010},
+  {cat:"儿童耳塞",group:"耳塞",sales:5143,cost:1325.56,gp:3225.77,sfTotal:3431.82,adv:1549.99,taxFee:498.84,otherPromo:215.15,netGP:-206.05,mgmt:1109.9,netProfit:-1315.95,logistics:628.24,salary:520.09,pkg:99.78,rent:128.84,express:214.6,csSalary:156.12,teamSalary:363.97,stock:26010},
+  {cat:"鼻夹",group:"鼻夹",sales:14236.12,cost:3338.48,gp:9259.86,sfTotal:10205.03,adv:5020.73,taxFee:1380.81,otherPromo:595.56,netGP:-945.17,mgmt:3072.26,netProfit:-4017.43,logistics:2013.26,salary:1439.63,pkg:323.23,rent:417.38,express:695.19,csSalary:432.15,teamSalary:1007.48,stock:7950},
+  {cat:"A字板",group:"浮板",sales:5293.92,cost:1406.78,gp:3278.1,sfTotal:3137.99,adv:1475.56,taxFee:513.48,otherPromo:221.47,netGP:140.11,mgmt:1142.47,netProfit:-1002.36,logistics:457.51,salary:535.35,pkg:70.27,rent:90.74,express:151.13,csSalary:160.7,teamSalary:374.65,stock:1581},
+  {cat:"背漂",group:"浮板",sales:3291.54,cost:826.58,gp:2086.28,sfTotal:1221.24,adv:110.76,taxFee:319.26,otherPromo:137.7,netGP:865.04,mgmt:710.34,netProfit:154.7,logistics:308.33,salary:332.86,pkg:47.78,rent:61.7,express:102.77,csSalary:99.92,teamSalary:232.94,stock:1581},
+];
+
+const NUMKEYS = ["sales","cost","gp","sfTotal","adv","taxFee","otherPromo","netGP","mgmt","netProfit","logistics","salary","pkg","rent","express","csSalary","teamSalary","stock"];
+
+function mergeGroup(raw, group, newCat) {
+  const rows = raw.filter(r=>r.group===group);
+  if (!rows.length) return null;
+  const m = {cat:newCat, group};
+  NUMKEYS.forEach(k=>{ m[k]=rows.reduce((s,r)=>s+(r[k]||0),0); });
+  return m;
+}
+function buildData(raw) {
+  return [
+    mergeGroup(raw,"耳塞","耳塞"),
+    raw.find(r=>r.cat==="鼻夹"),
+    mergeGroup(raw,"浮板","浮板"),
+    ...raw.filter(r=>r.group==="其他")
+  ].filter(Boolean);
+}
+
+const D25 = buildData(RAW25);
+const D26 = buildData(RAW26);
+const CATS = ["耳塞","鼻夹","浮板"];
+const CAT_COLORS = {"耳塞":"#4A90D9","鼻夹":"#E07B54","浮板":"#52C37F","漂浮袋":"#9B6DE0","潜水装备":"#F0C040","沙滩鞋":"#E85F8A"};
+const Y25C="#5B8DB8", Y26C="#E07B54", GREEN="#52C37F", RED="#E05454", ACCENT="#58A6FF";
+
+const g25 = cat=>D25.find(r=>r.cat===cat);
+const g26 = cat=>D26.find(r=>r.cat===cat);
+
+const fmtMoney = v => v==null||isNaN(v)?"—":`¥${Math.round(Math.abs(v)).toLocaleString("zh-CN")}`;
+const fmtPct = v => v==null||isNaN(v)?"—":`${(v*100).toFixed(1)}%`;
+const fmtPctRaw = v => v==null||isNaN(v)?"—":`${v.toFixed(1)}%`;
+const sign = v => v>=0?"+":"";
+const chgColor = (v, inv=false) => (inv ? v<0 : v>0) ? GREEN : RED;
+
+// ═══════════════════════════════════════════════
+// CANVAS CHART HELPERS
+// ═══════════════════════════════════════════════
+const DPR = window.devicePixelRatio||1;
+
+function initCanvas(id, w, h) {
+  const c = document.getElementById(id);
+  c.width = w * DPR; c.height = h * DPR;
+  c.style.width = w+"px"; c.style.height = h+"px";
+  const ctx = c.getContext("2d");
+  ctx.scale(DPR, DPR);
+  return ctx;
+}
+
+function drawBarChart(ctx, W, H, data, keys, colors, opts={}) {
+  const pad = opts.pad||{top:20,right:10,bottom:30,left:52};
+  const cw = W - pad.left - pad.right;
+  const ch = H - pad.top - pad.bottom;
+  ctx.clearRect(0,0,W,H);
+
+  const allVals = data.flatMap(d=>keys.map(k=>d[k]||0));
+  const maxV = Math.max(...allVals, 1);
+  const minV = Math.min(...allVals, 0);
+  const range = maxV - minV;
+
+  // grid lines
+  const steps = 4;
+  ctx.strokeStyle = "#30363D"; ctx.lineWidth = 0.5;
+  ctx.fillStyle = "#8B949E"; ctx.font = `${9*1}px monospace`;
+  for (let i=0;i<=steps;i++) {
+    const v = minV + range*(steps-i)/steps;
+    const y = pad.top + ch*i/steps;
+    ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(pad.left+cw, y); ctx.stroke();
+    const label = opts.pct ? `${v.toFixed(0)}%` : (Math.abs(v)>=1000?`¥${(v/1000).toFixed(0)}k`:`¥${v.toFixed(0)}`);
+    ctx.fillStyle="#8B949E"; ctx.textAlign="right"; ctx.fillText(label, pad.left-4, y+3);
+  }
+
+  // zero line
+  if (minV < 0) {
+    const y0 = pad.top + ch*(maxV/range);
+    ctx.strokeStyle="#555"; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(pad.left,y0); ctx.lineTo(pad.left+cw,y0); ctx.stroke();
+  }
+
+  const nGroups = data.length;
+  const nBars = keys.length;
+  const groupW = cw / nGroups;
+  const barW = Math.min((groupW * 0.7) / nBars, 28);
+  const groupGap = (groupW - barW*nBars) / 2;
+
+  const y0 = pad.top + ch*(maxV/range);
+
+  data.forEach((d,gi) => {
+    const gx = pad.left + gi*groupW;
+    keys.forEach((k,ki) => {
+      const v = d[k]||0;
+      const barH = Math.abs(v)/range * ch;
+      const x = gx + groupGap + ki*barW;
+      const y = v>=0 ? y0-barH : y0;
+      ctx.fillStyle = colors[ki];
+      ctx.beginPath();
+      const r = 2;
+      if (v>=0) {
+        ctx.moveTo(x+r,y); ctx.lineTo(x+barW-r,y); ctx.quadraticCurveTo(x+barW,y,x+barW,y+r);
+        ctx.lineTo(x+barW,y+barH); ctx.lineTo(x,y+barH); ctx.lineTo(x,y+r); ctx.quadraticCurveTo(x,y,x+r,y);
+      } else {
+        ctx.moveTo(x,y); ctx.lineTo(x+barW,y); ctx.lineTo(x+barW,y+barH-r); ctx.quadraticCurveTo(x+barW,y+barH,x+barW-r,y+barH);
+        ctx.lineTo(x+r,y+barH); ctx.quadraticCurveTo(x,y+barH,x,y+barH-r); ctx.lineTo(x,y);
+      }
+      ctx.closePath(); ctx.fill();
+    });
+    // x label
+    ctx.fillStyle="#8B949E"; ctx.font=`${10}px sans-serif`; ctx.textAlign="center";
+    ctx.fillText(d.cat||d.label||"", gx+groupW/2, H-pad.bottom+14);
+  });
+
+  // legend
+  if (opts.legend) {
+    opts.legend.forEach((l,i)=>{
+      const lx = pad.left + i*90;
+      ctx.fillStyle = colors[i];
+      ctx.fillRect(lx, H-12, 10, 8);
+      ctx.fillStyle="#8B949E"; ctx.font="9px sans-serif"; ctx.textAlign="left";
+      ctx.fillText(l, lx+13, H-5);
+    });
+  }
+
+  // ref line
+  if (opts.refLine != null) {
+    const ry = pad.top + ch*(maxV-opts.refLine)/range;
+    ctx.strokeStyle=opts.refLineColor||RED; ctx.lineWidth=1; ctx.setLineDash([4,4]);
+    ctx.beginPath(); ctx.moveTo(pad.left,ry); ctx.lineTo(pad.left+cw,ry); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle=opts.refLineColor||RED; ctx.font="9px sans-serif"; ctx.textAlign="left";
+    ctx.fillText(opts.refLineLabel||"", pad.left+cw+2, ry+3);
+  }
+}
+
+function drawStackedBar(ctx, W, H, data, keys, colors, opts={}) {
+  const pad = opts.pad||{top:20,right:10,bottom:30,left:52};
+  const cw = W - pad.left - pad.right;
+  const ch = H - pad.top - pad.bottom;
+  ctx.clearRect(0,0,W,H);
+
+  const totals = data.map(d=>keys.reduce((s,k)=>s+(d[k]||0),0));
+  const maxV = Math.max(...totals, 1);
+
+  // grid
+  for (let i=0;i<=4;i++) {
+    const v = maxV*(4-i)/4;
+    const y = pad.top + ch*i/4;
+    ctx.strokeStyle="#30363D"; ctx.lineWidth=0.5;
+    ctx.beginPath(); ctx.moveTo(pad.left,y); ctx.lineTo(pad.left+cw,y); ctx.stroke();
+    ctx.fillStyle="#8B949E"; ctx.font="9px monospace"; ctx.textAlign="right";
+    const label = Math.abs(v)>=1000?`¥${(v/1000).toFixed(0)}k`:`¥${v.toFixed(0)}`;
+    ctx.fillText(label, pad.left-4, y+3);
+  }
+
+  const barW = Math.min(cw/data.length*0.5, 40);
+
+  data.forEach((d,i)=>{
+    const x = pad.left + (i+0.5)*cw/data.length - barW/2;
+    let cumH = 0;
+    keys.forEach((k,ki)=>{
+      const v = d[k]||0;
+      const bh = v/maxV*ch;
+      const y = pad.top + ch - cumH - bh;
+      ctx.fillStyle = colors[ki];
+      ctx.fillRect(x, y, barW, bh);
+      cumH += bh;
+    });
+    ctx.fillStyle="#8B949E"; ctx.font="10px sans-serif"; ctx.textAlign="center";
+    ctx.fillText(d.cat||d.label||"", pad.left+(i+0.5)*cw/data.length, H-pad.bottom+14);
+  });
+
+  if (opts.legend) {
+    opts.legend.forEach((l,i)=>{
+      const lx = pad.left + i*75;
+      ctx.fillStyle=colors[i]; ctx.fillRect(lx,H-12,10,8);
+      ctx.fillStyle="#8B949E"; ctx.font="9px sans-serif"; ctx.textAlign="left";
+      ctx.fillText(l, lx+13, H-5);
+    });
+  }
+}
+
+function drawPie(ctx, W, H, data, opts={}) {
+  const cx=W/2, cy=H/2-10, r=Math.min(W,H)/2-40;
+  ctx.clearRect(0,0,W,H);
+  const total = data.reduce((s,d)=>s+d.value,0);
+  let angle = -Math.PI/2;
+  data.forEach(d=>{
+    const slice = d.value/total * Math.PI*2;
+    ctx.beginPath(); ctx.moveTo(cx,cy);
+    ctx.arc(cx,cy,r,angle,angle+slice);
+    ctx.closePath(); ctx.fillStyle=d.color; ctx.fill();
+    // label
+    const mid = angle + slice/2;
+    const lx = cx + Math.cos(mid)*(r*0.65);
+    const ly = cy + Math.sin(mid)*(r*0.65);
+    if (slice > 0.15) {
+      ctx.fillStyle="#fff"; ctx.font="bold 10px sans-serif"; ctx.textAlign="center";
+      ctx.fillText(`${(d.value/total*100).toFixed(0)}%`, lx, ly);
+    }
+    angle += slice;
+  });
+  // legend
+  data.forEach((d,i)=>{
+    const lx = 8, ly = H - data.length*14 + i*14;
+    ctx.fillStyle=d.color; ctx.fillRect(lx,ly-8,10,8);
+    ctx.fillStyle="#8B949E"; ctx.font="10px sans-serif"; ctx.textAlign="left";
+    ctx.fillText(`${d.name} ¥${Math.round(d.value/1000)}k`, lx+13, ly);
+  });
+}
+
+function drawRadar(ctx, W, H, series, labels, opts={}) {
+  const cx=W/2, cy=H/2, r=Math.min(W,H)/2-40;
+  ctx.clearRect(0,0,W,H);
+  const n = labels.length;
+  const angle = i => (i/n)*Math.PI*2 - Math.PI/2;
+
+  // grid
+  for (let ring=1;ring<=4;ring++) {
+    ctx.beginPath();
+    for (let i=0;i<n;i++) {
+      const a=angle(i), rr=r*ring/4;
+      i===0 ? ctx.moveTo(cx+Math.cos(a)*rr, cy+Math.sin(a)*rr) : ctx.lineTo(cx+Math.cos(a)*rr, cy+Math.sin(a)*rr);
+    }
+    ctx.closePath(); ctx.strokeStyle="#30363D"; ctx.lineWidth=0.5; ctx.stroke();
+  }
+  // axes
+  for (let i=0;i<n;i++) {
+    const a=angle(i);
+    ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(cx+Math.cos(a)*r, cy+Math.sin(a)*r);
+    ctx.strokeStyle="#30363D"; ctx.lineWidth=0.5; ctx.stroke();
+    // label
+    const lx=cx+Math.cos(a)*(r+16), ly=cy+Math.sin(a)*(r+16);
+    ctx.fillStyle="#8B949E"; ctx.font="10px sans-serif"; ctx.textAlign="center"; ctx.textBaseline="middle";
+    ctx.fillText(labels[i], lx, ly);
+  }
+
+  series.forEach(s=>{
+    ctx.beginPath();
+    s.vals.forEach((v,i)=>{
+      const a=angle(i), rr=r*Math.max(0,Math.min(1,v));
+      i===0 ? ctx.moveTo(cx+Math.cos(a)*rr, cy+Math.sin(a)*rr) : ctx.lineTo(cx+Math.cos(a)*rr, cy+Math.sin(a)*rr);
+    });
+    ctx.closePath();
+    ctx.strokeStyle=s.color; ctx.lineWidth=2; ctx.stroke();
+    ctx.fillStyle=s.color+"33"; ctx.fill();
+  });
+  ctx.textBaseline="alphabetic";
+}
+
+// ═══════════════════════════════════════════════
+// TOOLTIP
+// ═══════════════════════════════════════════════
+const tip = document.getElementById("tooltip");
+function showTip(e, html) {
+  tip.innerHTML = html; tip.style.display="block";
+  moveTip(e);
+}
+function moveTip(e) {
+  const x = e.clientX+12, y = e.clientY-10;
+  tip.style.left = Math.min(x, window.innerWidth-160)+"px";
+  tip.style.top = Math.min(y, window.innerHeight-80)+"px";
+}
+function hideTip() { tip.style.display="none"; }
+
+// ═══════════════════════════════════════════════
+// PAGE BUILDERS
+// ═══════════════════════════════════════════════
+
+// ── 总览 ──────────────────────────────────────
+function buildOverview() {
+  const t25s = CATS.reduce((s,c)=>s+(g25(c)?.sales||0),0);
+  const t26s = CATS.reduce((s,c)=>s+(g26(c)?.sales||0),0);
+  const t25p = CATS.reduce((s,c)=>s+(g25(c)?.netProfit||0),0);
+  const t26p = CATS.reduce((s,c)=>s+(g26(c)?.netProfit||0),0);
+  const t25g = CATS.reduce((s,c)=>s+(g25(c)?.gp||0),0);
+  const t26g = CATS.reduce((s,c)=>s+(g26(c)?.gp||0),0);
+  const t25f = CATS.reduce((s,c)=>s+(g25(c)?.sfTotal||0),0);
+  const t26f = CATS.reduce((s,c)=>s+(g26(c)?.sfTotal||0),0);
+
+  const kpis = [
+    {label:"含税销售额(共同品类)",v25:t25s,v26:t26s},
+    {label:"销售毛利",v25:t25g,v26:t26g},
+    {label:"净利润",v25:t25p,v26:t26p},
+    {label:"销售费用合计",v25:t25f,v26:t26f,inv:true},
+  ];
+
+  const kpiHtml = kpis.map(k=>{
+    const d=k.v26-k.v25, pct=(d/Math.abs(k.v25)*100);
+    const isGood = k.inv ? d<0 : d>0;
+    const cc = isGood?GREEN:RED;
+    return `<div class="kpi-card">
+      <div class="kpi-label">${k.label}</div>
+      <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:4px">
+        <span class="kpi-val">${fmtMoney(k.v26)}</span>
+        <span class="kpi-chg" style="color:${cc}">${pct>=0?"▲":"▼"}${Math.abs(pct).toFixed(1)}%</span>
+      </div>
+      <div class="kpi-prev">上年同期: ${fmtMoney(k.v25)} <span style="color:${cc}">(${sign(d)}${fmtMoney(d)})</span></div>
+    </div>`;
+  }).join("");
+
+  const catCards = CATS.map(cat=>{
+    const d25=g25(cat),d26=g26(cat);
+    if(!d25||!d26) return "";
+    const schg=((d26.sales-d25.sales)/d25.sales*100).toFixed(1);
+    const np25=(d25.netProfit/d25.sales*100).toFixed(1);
+    const np26=(d26.netProfit/d26.sales*100).toFixed(1);
+    const profit=d26.netProfit>0;
+    const cc=profit?GREEN:RED;
+    return `<div class="cat-card">
+      <div class="cat-card-bar" style="background:${cc}"></div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+        <span style="font-size:15px;font-weight:800;color:#E6EDF3">${cat}</span>
+        <span class="tag" style="background:${cc}22;color:${cc};border:1px solid ${cc}44">${profit?"盈利":"亏损"}</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div class="stat-box"><div class="stat-label">2026销售额</div>
+          <div class="stat-val" style="color:#E6EDF3">${fmtMoney(d26.sales)}</div>
+          <div style="font-size:10px;color:${parseFloat(schg)>=0?GREEN:RED}">${parseFloat(schg)>=0?"▲":"▼"}${Math.abs(schg)}% YoY</div>
+        </div>
+        <div class="stat-box"><div class="stat-label">净利率对比</div>
+          <div class="stat-val" style="color:${Y25C}">25年: ${np25}%</div>
+          <div class="stat-val" style="color:${cc}">26年: ${np26}%</div>
+        </div>
+        <div class="stat-box"><div class="stat-label">2026毛利率</div>
+          <div class="stat-val">${fmtPct(d26.gp/d26.sales)}</div>
+        </div>
+        <div class="stat-box"><div class="stat-label">销售费用率</div>
+          <div class="stat-val" style="color:${d26.sfTotal/d26.sales>0.7?RED:"#E6EDF3"}">${fmtPct(d26.sfTotal/d26.sales)}</div>
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+
+  return `
+    <div class="flex mb20">${kpiHtml}</div>
+    <div class="grid3 mb20">${catCards}</div>
+    <div class="grid2 mb16">
+      <div class="card"><div class="card-title">销售额同比对比</div><canvas id="c_sales_bar" style="width:100%;height:200px"></canvas></div>
+      <div class="card"><div class="card-title">2026年销售额品类分布</div><canvas id="c_pie" style="width:100%;height:200px"></canvas></div>
+    </div>
+    <div class="grid2">
+      <div class="card"><div class="card-title">毛利率对比 (%)</div><canvas id="c_gp_bar" style="width:100%;height:180px"></canvas></div>
+      <div class="card"><div class="card-title">销售费用率对比 (%)</div><canvas id="c_sf_bar" style="width:100%;height:180px"></canvas></div>
+    </div>`;
+}
+
+function renderOverviewCharts() {
+  // Sales bar
+  const salesData = CATS.map(c=>({cat:c,"2025":g25(c)?.sales||0,"2026":g26(c)?.sales||0}));
+  const c1 = document.getElementById("c_sales_bar");
+  if(c1){const ctx=initCanvas("c_sales_bar",c1.parentElement.clientWidth||400,200);
+    drawBarChart(ctx,c1.parentElement.clientWidth||400,200,salesData,["2025","2026"],[Y25C,Y26C],{legend:["2025","2026"]});}
+
+  // Pie
+  const pc = document.getElementById("c_pie");
+  if(pc){const W=pc.parentElement.clientWidth||400;
+    const ctx=initCanvas("c_pie",W,200);
+    const pieD = D26.map(d=>({name:d.cat,value:d.sales,color:CAT_COLORS[d.cat]||"#888"}));
+    drawPie(ctx,W,200,pieD);}
+
+  // GP bar
+  const gpData = CATS.map(c=>({cat:c,"25毛利率":g25(c)?+(g25(c).gp/g25(c).sales*100).toFixed(1):0,"26毛利率":g26(c)?+(g26(c).gp/g26(c).sales*100).toFixed(1):0}));
+  const c3=document.getElementById("c_gp_bar");
+  if(c3){const W=c3.parentElement.clientWidth||400;const ctx=initCanvas("c_gp_bar",W,180);
+    drawBarChart(ctx,W,180,gpData,["25毛利率","26毛利率"],[Y25C,Y26C],{pct:true,legend:["2025","2026"]});}
+
+  // SF bar
+  const sfData = CATS.map(c=>({cat:c,"25费用率":g25(c)?+(g25(c).sfTotal/g25(c).sales*100).toFixed(1):0,"26费用率":g26(c)?+(g26(c).sfTotal/g26(c).sales*100).toFixed(1):0}));
+  const c4=document.getElementById("c_sf_bar");
+  if(c4){const W=c4.parentElement.clientWidth||400;const ctx=initCanvas("c_sf_bar",W,180);
+    drawBarChart(ctx,W,180,sfData,["25费用率","26费用率"],[Y25C,Y26C],{pct:true,legend:["2025","2026"],refLine:60,refLineLabel:"60%"});}
+}
+
+// ── 品类对比 ──────────────────────────────────
+let compareCat = "耳塞";
+function buildCompare() {
+  const btnHtml = CATS.map(c=>`<button class="btn-pill${c===compareCat?" active":""}" onclick="setCompareCat('${c}')">${c}</button>`).join("");
+
+  const metrics = [
+    {label:"含税销售额",key:"sales"},{label:"货品销售成本",key:"cost",inv:true},
+    {label:"销售毛利",key:"gp"},{label:"毛利率",key:"gp",key2:"sales",pct:true},
+    {label:"销售费用合计",key:"sfTotal",inv:true},{label:"推广费",key:"adv",inv:true},
+    {label:"平台费用",key:"taxFee",inv:true},{label:"其他推广",key:"otherPromo",inv:true},
+    {label:"净毛利",key:"netGP"},{label:"净毛利率",key:"netGP",key2:"sales",pct:true},
+    {label:"管理费用",key:"mgmt",inv:true},{label:"净利润",key:"netProfit"},
+    {label:"净利率",key:"netProfit",key2:"sales",pct:true},
+    {label:"物流成本",key:"logistics",inv:true},{label:"工资合计",key:"salary",inv:true},
+    {label:"包装耗材",key:"pkg",inv:true},{label:"仓租费",key:"rent",inv:true},{label:"快递费",key:"express",inv:true},
+  ];
+
+  const d25=g25(compareCat), d26=g26(compareCat);
+  const rows = metrics.map((m,i)=>{
+    let v25,v26;
+    if(m.pct){v25=d25?(d25[m.key]/d25[m.key2]):null;v26=d26?(d26[m.key]/d26[m.key2]):null;}
+    else{v25=d25?d25[m.key]:null;v26=d26?d26[m.key]:null;}
+    const delta=v25!=null&&v26!=null?v26-v25:null;
+    const pctChg=delta!=null&&v25?(delta/Math.abs(v25)*100):null;
+    const isGood=m.inv?delta<0:delta>0;
+    const cc=delta==null?"#8B949E":isGood?GREEN:RED;
+    const bg=i%2===0?"":"background:#0D1117";
+    const fmt=m.pct?fmtPct:fmtMoney;
+    return `<tr style="${bg}">
+      <td class="l" style="color:#E6EDF3">${m.label}</td>
+      <td class="r mono" style="color:${Y25C}">${fmt(v25)}</td>
+      <td class="r mono" style="color:${Y26C}">${fmt(v26)}</td>
+      <td class="r mono" style="color:${cc}">${delta!=null?sign(delta)+(m.pct?`${(delta*100).toFixed(1)}%`:fmtMoney(delta)):"—"}</td>
+      <td class="r mono" style="color:${cc}">${pctChg!=null?sign(pctChg)+pctChg.toFixed(1)+"%":"—"}</td>
+    </tr>`;
+  }).join("");
+
+  // radar
+  const radarLabels=["销售额","毛利","净利","推广费","物流费","人工费"];
+  const radarKeys=["sales","gp","netProfit","adv","logistics","salary"];
+
+  return `
+    <div class="btn-group">${btnHtml}</div>
+    <div class="grid2 mb16">
+      <div class="card" style="overflow:auto">
+        <table class="tbl">
+          <thead><tr>
+            <th class="l">指标</th>
+            <th class="r" style="color:${Y25C}">2025年2月</th>
+            <th class="r" style="color:${Y26C}">2026年2月</th>
+            <th class="r">变动额</th>
+            <th class="r">变动%</th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+      <div>
+        <div class="card mb14" style="height:280px">
+          <div class="card-title">${compareCat} 综合雷达图</div>
+          <canvas id="c_radar" style="width:100%;height:220px"></canvas>
+        </div>
+        <div class="grid2">
+          ${radarKeys.map((k,i)=>{
+            const d25v=d25?d25[k]:0,d26v=d26?d26[k]:0;
+            const chg=d25v?(d26v-d25v)/Math.abs(d25v)*100:0;
+            return `<div class="stat-box"><div class="stat-label">${radarLabels[i]}</div>
+              <div style="color:${Y26C};font-weight:700">${fmtMoney(d26v)}</div>
+              <div style="font-size:10px;color:${chg>=0?GREEN:RED}">${sign(chg)}${chg.toFixed(1)}% YoY</div></div>`;
+          }).join("")}
+        </div>
+      </div>
+    </div>`;
+}
+
+function setCompareCat(c) {
+  compareCat=c;
+  const pg=document.getElementById("page-compare");
+  pg.innerHTML = buildCompare();
+  renderCompareCharts();
+}
+
+function renderCompareCharts() {
+  const d25=g25(compareCat),d26=g26(compareCat);
+  if(!d25||!d26) return;
+  const c=document.getElementById("c_radar");
+  if(!c) return;
+  const W=c.parentElement.clientWidth||300;
+  const ctx=initCanvas("c_radar",W,220);
+  const labels=["销售额","毛利","净利","推广费","物流费","人工费"];
+  const keys=["sales","gp","netProfit","adv","logistics","salary"];
+  const maxVals=keys.map(k=>Math.max(Math.abs(d25[k]||0),Math.abs(d26[k]||0))||1);
+  drawRadar(ctx,W,220,[
+    {vals:keys.map((k,i)=>Math.abs(d25[k]||0)/maxVals[i]),color:Y25C},
+    {vals:keys.map((k,i)=>Math.abs(d26[k]||0)/maxVals[i]),color:Y26C},
+  ],labels);
+}
+
+// ── 损益分析 ──────────────────────────────────
+let pnlYear=2026;
+function buildPnL() {
+  const data = pnlYear===2026 ? D26 : D25.filter(r=>CATS.includes(r.cat));
+  const yearBtns = [2025,2026].map(y=>`<button class="btn-pill${y===pnlYear?" active":""}" onclick="setPnLYear(${y})">${y}年</button>`).join("");
+
+  const pnlRows = [
+    {label:"含税销售额",key:"sales",bold:true,sep:true},
+    {label:"(减) 货品销售成本",key:"cost",neg:true,indent:true},
+    {label:"销售毛利",key:"gp",bold:true,bg:"#0a1a0a"},
+    {label:"  毛利率",pctOf:["gp","sales"],indent:true,muted:true},
+    {label:"(减) 销售费用合计",key:"sfTotal",neg:true},
+    {label:"  推广费",key:"adv",neg:true,indent:true},
+    {label:"  平台费用",key:"taxFee",neg:true,indent:true},
+    {label:"  其他推广",key:"otherPromo",neg:true,indent:true},
+    {label:"净毛利",key:"netGP",bold:true,bg:"#0a1a0a"},
+    {label:"  净毛利率",pctOf:["netGP","sales"],indent:true,muted:true},
+    {label:"(减) 管理费用",key:"mgmt",neg:true},
+    {label:"净利润",key:"netProfit",bold:true,bg:"#0a0a1a",sep:true},
+    {label:"  净利率",pctOf:["netProfit","sales"],indent:true,muted:true},
+  ];
+
+  const catCols = CATS.map(cat=>{const d=data.find(r=>r.cat===cat);return d;});
+  const totals = pnlRows.map(row=>{
+    if(row.pctOf) return null;
+    return catCols.reduce((s,d)=>s+(d?d[row.key]||0:0),0);
+  });
+
+  const rowsHtml = pnlRows.map((row,ri)=>{
+    const bg = row.bg||"";
+    const sepStyle = row.sep?"border-top:1px solid rgba(88,166,255,.3)":"";
+    const cells = catCols.map(d=>{
+      if(!d) return `<td class="r mono">—</td>`;
+      let v;
+      if(row.pctOf) v=d[row.pctOf[1]]?d[row.pctOf[0]]/d[row.pctOf[1]]:null;
+      else v=d[row.key]??null;
+      const cc = row.pctOf ? "#E6EDF3" : v==null?"#8B949E":v<0?RED:"#E6EDF3";
+      return `<td class="r mono" style="color:${cc};font-weight:${row.bold?700:400}">${row.pctOf?fmtPct(v):fmtMoney(v)}</td>`;
+    }).join("");
+    const tot = totals[ri];
+    const totCell = tot==null?`<td class="r mono muted">—</td>`:
+      `<td class="r mono" style="color:${tot<0?RED:GREEN};font-weight:700">${fmtMoney(tot)}</td>`;
+    return `<tr style="background:${bg};${sepStyle}">
+      <td class="l" style="padding-left:${row.indent?24:12}px;color:${row.muted?"#8B949E":row.bold?"#E6EDF3":"#C8D3DC"};font-weight:${row.bold?700:400}">${row.label}</td>
+      ${cells}${totCell}
+    </tr>`;
+  }).join("");
+
+  const wfCharts = CATS.map(cat=>`
+    <div class="card">
+      <div class="card-title" style="color:${CAT_COLORS[cat]||ACCENT}">${cat} 损益瀑布</div>
+      <canvas id="c_wf_${cat}" style="width:100%;height:220px"></canvas>
+    </div>`).join("");
+
+  return `
+    <div class="btn-group">${yearBtns}</div>
+    <div class="card mb16" style="overflow:auto">
+      <table class="tbl">
+        <thead><tr>
+          <th class="l" style="min-width:160px">损益项目</th>
+          ${CATS.map(c=>`<th class="r" style="color:${CAT_COLORS[c]}">${c}</th>`).join("")}
+          <th class="r" style="color:${ACCENT}">合计</th>
+        </tr></thead>
+        <tbody>${rowsHtml}</tbody>
+      </table>
+    </div>
+    <div class="grid3">${wfCharts}</div>`;
+}
+
+function setPnLYear(y){pnlYear=y;const pg=document.getElementById("page-pnl");pg.innerHTML=buildPnL();renderPnLCharts();}
+
+function renderPnLCharts() {
+  const data = pnlYear===2026 ? D26 : D25.filter(r=>CATS.includes(r.cat));
+  CATS.forEach(cat=>{
+    const c=document.getElementById(`c_wf_${cat}`);
+    if(!c) return;
+    const d=data.find(r=>r.cat===cat);
+    if(!d) return;
+    const W=c.parentElement.clientWidth||300;
+    const ctx=initCanvas(`c_wf_${cat}`,W,220);
+    const items=[
+      {label:"销售额",v:d.sales,color:GREEN},
+      {label:"(货品成本)"  ,v:-d.cost,color:RED},
+      {label:"毛利",v:d.gp,color:ACCENT},
+      {label:"(推广费)",v:-d.adv,color:RED},
+      {label:"(平台费)",v:-d.taxFee,color:"#E07B54"},
+      {label:"净毛利",v:d.netGP,color:ACCENT},
+      {label:"(管理费)",v:-d.mgmt,color:RED},
+      {label:"净利润",v:d.netProfit,color:d.netProfit>=0?GREEN:RED},
+    ];
+    const pad={top:10,right:8,bottom:30,left:8};
+    const cw=W-pad.left-pad.right,ch=220-pad.top-pad.bottom;
+    ctx.clearRect(0,0,W,220);
+    const allV=[...items.map(x=>x.v),0];
+    const maxV=Math.max(...allV),minV=Math.min(...allV);
+    const range=maxV-minV||1;
+    const bw=cw/items.length*0.6;
+    items.forEach((item,i)=>{
+      const x=pad.left+(i+0.5)*cw/items.length-bw/2;
+      const bh=Math.abs(item.v)/range*ch;
+      const y0=pad.top+ch*maxV/range;
+      const y=item.v>=0?y0-bh:y0;
+      ctx.fillStyle=item.color; ctx.fillRect(x,y,bw,bh);
+      ctx.fillStyle="#8B949E"; ctx.font="8px sans-serif"; ctx.textAlign="center";
+      ctx.fillText(item.label,x+bw/2,220-pad.bottom+12);
+      // value label
+      const vLabel=Math.abs(item.v)>=1000?`${(item.v/1000).toFixed(1)}k`:item.v.toFixed(0);
+      ctx.fillStyle="#E6EDF3"; ctx.font="8px monospace";
+      ctx.fillText(vLabel,x+bw/2,item.v>=0?y-3:y+bh+10);
+    });
+  });
+}
+
+// ── 费用结构 ──────────────────────────────────
+function buildCost() {
+  const costKeys=["adv","taxFee","otherPromo","logistics","salary","mgmt"];
+  const costLabels=["推广费","平台费用","其他推广","物流","工资","管理费用"];
+  const costColors=["#E07B54","#4A90D9","#9B6DE0","#52C37F","#F0C040","#E85F8A"];
+
+  const stackCharts = CATS.map(cat=>`
+    <div class="card">
+      <div class="card-title" style="color:${CAT_COLORS[cat]}">${cat} 费用结构对比</div>
+      <canvas id="c_stack_${cat}" style="width:100%;height:200px"></canvas>
+    </div>`).join("");
+
+  const tblRows = [
+    {label:"销售费用合计",key:"sfTotal",main:true},
+    {label:"  推广费",key:"adv"},{label:"  平台费用",key:"taxFee"},{label:"  其他推广",key:"otherPromo"},
+    {label:"物流成本合计",key:"logistics",main:true},
+    {label:"  包装耗材",key:"pkg"},{label:"  仓租费",key:"rent"},{label:"  快递费",key:"express"},
+    {label:"工资合计",key:"salary",main:true},
+    {label:"  客服工资",key:"csSalary"},{label:"  团队工资",key:"teamSalary"},
+    {label:"管理费用",key:"mgmt",main:true},
+  ].map((row,i)=>{
+    const cells=CATS.flatMap(cat=>{
+      const v25=g25(cat)?.[row.key]||0,v26=g26(cat)?.[row.key]||0,d=v26-v25;
+      return [
+        `<td class="r mono" style="color:${Y25C}">${fmtMoney(v25)}</td>`,
+        `<td class="r mono" style="color:${Y26C}">${fmtMoney(v26)}</td>`,
+        `<td class="r mono" style="color:${d>0?RED:GREEN}">${sign(d)}${fmtMoney(d)}</td>`,
+      ];
+    }).join("");
+    const bg=i%2===0?"":"background:#0D1117";
+    return `<tr style="${bg}"><td class="l" style="color:${row.main?"#E6EDF3":"#8B949E"};padding-left:${row.main?12:24}px;font-weight:${row.main?600:400}">${row.label}</td>${cells}</tr>`;
+  }).join("");
+
+  return `
+    <div class="grid3 mb16">${stackCharts}</div>
+    <div class="card mb16">
+      <div class="card-title">三品类费用率对比（占销售额 %）</div>
+      <canvas id="c_rate_compare" style="width:100%;height:200px"></canvas>
+    </div>
+    <div class="card" style="overflow:auto">
+      <table class="tbl">
+        <thead><tr>
+          <th class="l">费用项目</th>
+          ${CATS.flatMap(c=>[`<th class="r" style="color:${Y25C}">${c} 25年</th>`,`<th class="r" style="color:${Y26C}">${c} 26年</th>`,`<th class="r">变动</th>`]).join("")}
+        </tr></thead>
+        <tbody>${tblRows}</tbody>
+      </table>
+    </div>`;
+}
+
+function renderCostCharts() {
+  const costKeys=["adv","taxFee","otherPromo","logistics","salary","mgmt"];
+  const costLabels=["推广费","平台费用","其他推广","物流","工资","管理费用"];
+  const costColors=["#E07B54","#4A90D9","#9B6DE0","#52C37F","#F0C040","#E85F8A"];
+
+  CATS.forEach(cat=>{
+    const c=document.getElementById(`c_stack_${cat}`);
+    if(!c) return;
+    const W=c.parentElement.clientWidth||300;
+    const ctx=initCanvas(`c_stack_${cat}`,W,200);
+    const d25=g25(cat),d26=g26(cat);
+    const data=[
+      {cat:"2025",...Object.fromEntries(costKeys.map(k=>[k,d25?d25[k]||0:0]))},
+      {cat:"2026",...Object.fromEntries(costKeys.map(k=>[k,d26?d26[k]||0:0]))},
+    ];
+    drawStackedBar(ctx,W,200,data,costKeys,costColors,{legend:costLabels});
+  });
+
+  const c=document.getElementById("c_rate_compare");
+  if(c){
+    const W=c.parentElement.clientWidth||800;
+    const ctx=initCanvas("c_rate_compare",W,200);
+    const data=CATS.map(cat=>{
+      const d25=g25(cat),d26=g26(cat);
+      return {cat,
+        "25推广":d25?+(d25.adv/d25.sales*100).toFixed(1):0,
+        "26推广":d26?+(d26.adv/d26.sales*100).toFixed(1):0,
+        "25物流":d25?+(d25.logistics/d25.sales*100).toFixed(1):0,
+        "26物流":d26?+(d26.logistics/d26.sales*100).toFixed(1):0,
+        "25工资":d25?+(d25.salary/d25.sales*100).toFixed(1):0,
+        "26工资":d26?+(d26.salary/d26.sales*100).toFixed(1):0,
+      };
+    });
+    drawBarChart(ctx,W,200,data,["25推广","26推广","25物流","26物流","25工资","26工资"],
+      [Y25C,Y26C,"#52C37F","#2a8a5a","#F0C040","#a07810"],
+      {pct:true,legend:["25推广","26推广","25物流","26物流","25工资","26工资"]});
+  }
+}
+
+// ── 推广分析 ──────────────────────────────────
+function buildMarketing() {
+  const cards=CATS.map(cat=>{
+    const d25=g25(cat),d26=g26(cat);
+    if(!d25||!d26) return "";
+    const roi25=d25.adv>0?(d25.sales/d25.adv).toFixed(2):"∞";
+    const roi26=d26.adv>0?(d26.sales/d26.adv).toFixed(2):"∞";
+    const r25=(d25.adv/d25.sales*100).toFixed(1);
+    const r26=(d26.adv/d26.sales*100).toFixed(1);
+    const chg=d25.adv>0?((d26.adv-d25.adv)/d25.adv*100).toFixed(1):"N/A";
+    return `<div class="card">
+      <div class="card-title" style="color:${CAT_COLORS[cat]}">${cat}</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div class="stat-box"><div class="stat-label">25年推广费</div><div class="stat-val" style="color:${Y25C}">${fmtMoney(d25.adv)}</div></div>
+        <div class="stat-box"><div class="stat-label">26年推广费</div><div class="stat-val" style="color:${Y26C}">${fmtMoney(d26.adv)}</div></div>
+        <div class="stat-box"><div class="stat-label">推广费YoY</div><div class="stat-val" style="color:${parseFloat(chg)>0?RED:GREEN}">${chg}%</div></div>
+        <div class="stat-box"><div class="stat-label">推广率变动</div><div class="stat-val" style="color:${parseFloat(r26)>parseFloat(r25)?RED:GREEN}">${r25}%→${r26}%</div></div>
+        <div class="stat-box" style="grid-column:span 2"><div class="stat-label">推广ROI (销售/推广费)</div>
+          <div><span style="color:${Y25C};font-weight:700">25年: ${roi25}</span> <span style="color:${Y26C};font-weight:700;margin-left:12px">26年: ${roi26}</span></div>
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+
+  return `
+    <div class="grid3 mb16">${cards}</div>
+    <div class="grid2 mb16">
+      <div class="card"><div class="card-title">推广费绝对值 25 vs 26</div><canvas id="c_adv_abs" style="width:100%;height:200px"></canvas></div>
+      <div class="card"><div class="card-title">推广率 25 vs 26 (%)</div><canvas id="c_adv_rate" style="width:100%;height:200px"></canvas></div>
+    </div>
+    <div class="grid2">
+      <div class="card"><div class="card-title">2026年推广费构成</div><canvas id="c_adv_struct" style="width:100%;height:180px"></canvas></div>
+      <div class="card"><div class="card-title">推广ROI对比</div><canvas id="c_roi" style="width:100%;height:180px"></canvas></div>
+    </div>`;
+}
+
+function renderMarketingCharts(){
+  const advData=CATS.map(c=>({cat:c,"25年推广费":g25(c)?.adv||0,"26年推广费":g26(c)?.adv||0}));
+  const c1=document.getElementById("c_adv_abs");
+  if(c1){const W=c1.parentElement.clientWidth||400;const ctx=initCanvas("c_adv_abs",W,200);
+    drawBarChart(ctx,W,200,advData,["25年推广费","26年推广费"],[Y25C,Y26C],{legend:["2025","2026"]});}
+
+  const rateData=CATS.map(c=>({cat:c,"25年推广率":g25(c)?+(g25(c).adv/g25(c).sales*100).toFixed(1):0,"26年推广率":g26(c)?+(g26(c).adv/g26(c).sales*100).toFixed(1):0}));
+  const c2=document.getElementById("c_adv_rate");
+  if(c2){const W=c2.parentElement.clientWidth||400;const ctx=initCanvas("c_adv_rate",W,200);
+    drawBarChart(ctx,W,200,rateData,["25年推广率","26年推广率"],[Y25C,Y26C],{pct:true,legend:["2025","2026"],refLine:20,refLineLabel:"20%"});}
+
+  const structData=CATS.map(c=>{const d=g26(c);return {cat:c,推广费:d?.adv||0,平台费用:d?.taxFee||0,其他推广:d?.otherPromo||0};});
+  const c3=document.getElementById("c_adv_struct");
+  if(c3){const W=c3.parentElement.clientWidth||400;const ctx=initCanvas("c_adv_struct",W,180);
+    drawStackedBar(ctx,W,180,structData,["推广费","平台费用","其他推广"],["#E07B54","#4A90D9","#9B6DE0"],{legend:["推广费","平台费用","其他推广"]});}
+
+  const roiData=CATS.map(c=>({cat:c,"25年ROI":g25(c)&&g25(c).adv>0?+(g25(c).sales/g25(c).adv).toFixed(2):0,"26年ROI":g26(c)&&g26(c).adv>0?+(g26(c).sales/g26(c).adv).toFixed(2):0}));
+  const c4=document.getElementById("c_roi");
+  if(c4){const W=c4.parentElement.clientWidth||400;const ctx=initCanvas("c_roi",W,180);
+    drawBarChart(ctx,W,180,roiData,["25年ROI","26年ROI"],[Y25C,Y26C],{legend:["2025","2026"],refLine:3,refLineColor:GREEN,refLineLabel:"ROI=3"});}
+}
+
+// ── 盈利能力 ──────────────────────────────────
+function buildProfit() {
+  const matrix=CATS.map(cat=>{
+    const d25=g25(cat),d26=g26(cat);
+    return {cat,
+      gp25:d25?+(d25.gp/d25.sales*100).toFixed(1):null,gp26:d26?+(d26.gp/d26.sales*100).toFixed(1):null,
+      np25:d25?+(d25.netProfit/d25.sales*100).toFixed(1):null,np26:d26?+(d26.netProfit/d26.sales*100).toFixed(1):null,
+      ngp25:d25?+(d25.netGP/d25.sales*100).toFixed(1):null,ngp26:d26?+(d26.netGP/d26.sales*100).toFixed(1):null,
+    };
+  });
+  const cell=(v)=>{
+    const cc=v==null?"#8B949E":v>0?GREEN:v<-10?RED:Y26C;
+    const bg=v==null?"":v>0?"#052a0a":v<-10?"#2a0505":"";
+    return `<td class="c mono" style="color:${cc};background:${bg};font-weight:700">${v==null?"—":v.toFixed(1)+"%"}</td>`;
+  };
+  const tblRows=matrix.map(m=>{
+    const gpD=m.gp26-m.gp25,ngpD=m.ngp26-m.ngp25,npD=m.np26-m.np25;
+    return `<tr><td class="l" style="color:${CAT_COLORS[m.cat]};font-weight:700">${m.cat}</td>
+      ${cell(m.gp25)}${cell(m.gp26)}${cell(gpD)}
+      ${cell(m.ngp25)}${cell(m.ngp26)}${cell(ngpD)}
+      ${cell(m.np25)}${cell(m.np26)}${cell(npD)}
+    </tr>`;
+  }).join("");
+  return `
+    <div class="card mb16" style="overflow:auto">
+      <div class="card-title">盈利能力矩阵</div>
+      <table class="tbl">
+        <thead><tr>
+          <th class="l">品类</th>
+          <th class="c" style="color:${Y25C}">25毛利率</th><th class="c" style="color:${Y26C}">26毛利率</th><th class="c">变动</th>
+          <th class="c" style="color:${Y25C}">25净毛利率</th><th class="c" style="color:${Y26C}">26净毛利率</th><th class="c">变动</th>
+          <th class="c" style="color:${Y25C}">25净利率</th><th class="c" style="color:${Y26C}">26净利率</th><th class="c">变动</th>
+        </tr></thead>
+        <tbody>${tblRows}</tbody>
+      </table>
+    </div>
+    <div class="grid2">
+      <div class="card"><div class="card-title">毛利率 & 净利率对比</div><canvas id="c_margin_bar" style="width:100%;height:220px"></canvas></div>
+      <div class="card"><div class="card-title">2026 销售费率 vs 净利率</div><canvas id="c_scatter" style="width:100%;height:220px"></canvas></div>
+    </div>`;
+}
+
+function renderProfitCharts(){
+  const c1=document.getElementById("c_margin_bar");
+  if(c1){const W=c1.parentElement.clientWidth||400;const ctx=initCanvas("c_margin_bar",W,220);
+    const data=CATS.map(c=>({cat:c,"25毛利率":g25(c)?+(g25(c).gp/g25(c).sales*100).toFixed(1):0,"26毛利率":g26(c)?+(g26(c).gp/g26(c).sales*100).toFixed(1):0,"25净利率":g25(c)?+(g25(c).netProfit/g25(c).sales*100).toFixed(1):0,"26净利率":g26(c)?+(g26(c).netProfit/g26(c).sales*100).toFixed(1):0}));
+    drawBarChart(ctx,W,220,data,["25毛利率","26毛利率","25净利率","26净利率"],[Y25C,Y26C,"#82ca9d","#ff7b7b"],{pct:true,legend:["25毛利","26毛利","25净利","26净利"]});}
+
+  const c2=document.getElementById("c_scatter");
+  if(c2){
+    const W=c2.parentElement.clientWidth||400,H=220;
+    const ctx=initCanvas("c_scatter",W,H);
+    const pad={top:20,right:20,bottom:36,left:44};
+    const pts=CATS.map(c=>{const d=g26(c);return d?{cat:c,x:+(d.sfTotal/d.sales*100).toFixed(1),y:+(d.netProfit/d.sales*100).toFixed(1),r:Math.sqrt(d.sales/50)}:null;}).filter(Boolean);
+    ctx.clearRect(0,0,W,H);
+    const xs=pts.map(p=>p.x),ys=pts.map(p=>p.y);
+    const xMin=Math.min(...xs)-5,xMax=Math.max(...xs)+5;
+    const yMin=Math.min(...ys)-5,yMax=Math.max(...ys)+5;
+    const cw=W-pad.left-pad.right,ch=H-pad.top-pad.bottom;
+    // axes
+    ctx.strokeStyle="#30363D";ctx.lineWidth=0.5;
+    for(let i=0;i<=4;i++){
+      const y=pad.top+ch*i/4;ctx.beginPath();ctx.moveTo(pad.left,y);ctx.lineTo(pad.left+cw,y);ctx.stroke();
+      const v=yMax-(yMax-yMin)*i/4;ctx.fillStyle="#8B949E";ctx.font="9px monospace";ctx.textAlign="right";ctx.fillText(v.toFixed(0)+"%",pad.left-3,y+3);
+    }
+    for(let i=0;i<=4;i++){
+      const x=pad.left+cw*i/4;ctx.beginPath();ctx.moveTo(x,pad.top);ctx.lineTo(x,pad.top+ch);ctx.stroke();
+      const v=xMin+(xMax-xMin)*i/4;ctx.fillStyle="#8B949E";ctx.font="9px monospace";ctx.textAlign="center";ctx.fillText(v.toFixed(0)+"%",x,H-pad.bottom+12);
+    }
+    // zero line
+    const y0=pad.top+ch*(yMax/(yMax-yMin));
+    ctx.strokeStyle=RED;ctx.lineWidth=1;ctx.setLineDash([4,4]);
+    ctx.beginPath();ctx.moveTo(pad.left,y0);ctx.lineTo(pad.left+cw,y0);ctx.stroke();ctx.setLineDash([]);
+    // points
+    pts.forEach(p=>{
+      const px=pad.left+(p.x-xMin)/(xMax-xMin)*cw;
+      const py=pad.top+(yMax-p.y)/(yMax-yMin)*ch;
+      ctx.beginPath();ctx.arc(px,py,Math.max(p.r,6),0,Math.PI*2);
+      ctx.fillStyle=(CAT_COLORS[p.cat]||ACCENT)+"88";ctx.fill();
+      ctx.strokeStyle=CAT_COLORS[p.cat]||ACCENT;ctx.lineWidth=2;ctx.stroke();
+      ctx.fillStyle="#E6EDF3";ctx.font="bold 10px sans-serif";ctx.textAlign="center";ctx.fillText(p.cat,px,py-Math.max(p.r,6)-3);
+    });
+    ctx.fillStyle="#8B949E";ctx.font="9px sans-serif";ctx.textAlign="center";ctx.fillText("销售费率%",pad.left+cw/2,H-2);
+  }
+}
+
+// ── 物流仓储 ──────────────────────────────────
+function buildLogistics(){
+  const rows=[
+    {label:"包装耗材",key:"pkg"},{label:"仓租费",key:"rent"},{label:"快递费",key:"express"},{label:"物流合计",key:"logistics",bold:true},
+  ].map((row,i)=>{
+    const cells=CATS.flatMap(cat=>{
+      const v25=g25(cat)?.[row.key]||0,v26=g26(cat)?.[row.key]||0,d=v26-v25;
+      return [`<td class="r mono" style="color:${Y25C}">${fmtMoney(v25)}</td>`,
+              `<td class="r mono" style="color:${Y26C}">${fmtMoney(v26)}</td>`,
+              `<td class="r mono" style="color:${d>0?RED:GREEN}">${sign(d)}${fmtMoney(d)}</td>`];
+    }).join("");
+    return `<tr style="background:${i%2===0?"":"#0D1117"}"><td class="l" style="font-weight:${row.bold?700:400};color:${row.bold?"#E6EDF3":"#C8D3DC"}">${row.label}</td>${cells}</tr>`;
+  }).join("");
+
+  return `
+    <div class="grid2 mb16">
+      <div class="card"><div class="card-title">物流成本总额对比</div><canvas id="c_log_abs" style="width:100%;height:200px"></canvas></div>
+      <div class="card"><div class="card-title">物流成本率对比 (%)</div><canvas id="c_log_rate" style="width:100%;height:200px"></canvas></div>
+    </div>
+    <div class="card mb16"><div class="card-title">2026年物流成本结构（包装/仓租/快递）</div><canvas id="c_log_struct" style="width:100%;height:180px"></canvas></div>
+    <div class="card" style="overflow:auto">
+      <table class="tbl"><thead><tr><th class="l">费用项目</th>
+        ${CATS.flatMap(c=>[`<th class="r" style="color:${Y25C}">${c} 25年</th>`,`<th class="r" style="color:${Y26C}">${c} 26年</th>`,`<th class="r">变动</th>`]).join("")}
+      </tr></thead><tbody>${rows}</tbody></table>
+    </div>`;
+}
+
+function renderLogisticsCharts(){
+  const c1=document.getElementById("c_log_abs");
+  if(c1){const W=c1.parentElement.clientWidth||400;const ctx=initCanvas("c_log_abs",W,200);
+    drawBarChart(ctx,W,200,CATS.map(c=>({cat:c,"25物流":g25(c)?.logistics||0,"26物流":g26(c)?.logistics||0})),["25物流","26物流"],[Y25C,Y26C],{legend:["2025","2026"]});}
+  const c2=document.getElementById("c_log_rate");
+  if(c2){const W=c2.parentElement.clientWidth||400;const ctx=initCanvas("c_log_rate",W,200);
+    drawBarChart(ctx,W,200,CATS.map(c=>({cat:c,"25物流率":g25(c)?+(g25(c).logistics/g25(c).sales*100).toFixed(1):0,"26物流率":g26(c)?+(g26(c).logistics/g26(c).sales*100).toFixed(1):0})),["25物流率","26物流率"],[Y25C,Y26C],{pct:true,legend:["2025","2026"]});}
+  const c3=document.getElementById("c_log_struct");
+  if(c3){const W=c3.parentElement.clientWidth||800;const ctx=initCanvas("c_log_struct",W,180);
+    drawStackedBar(ctx,W,180,CATS.map(c=>{const d=g26(c);return {cat:c,包装耗材:d?.pkg||0,仓租费:d?.rent||0,快递费:d?.express||0};}),["包装耗材","仓租费","快递费"],["#52C37F","#4A90D9","#E07B54"],{legend:["包装耗材","仓租费","快递费"]});}
+}
+
+// ── 人员薪资 ──────────────────────────────────
+function buildSalary(){
+  const cards=CATS.map(cat=>{
+    const d25=g25(cat),d26=g26(cat);if(!d25||!d26) return "";
+    const chg=((d26.salary-d25.salary)/d25.salary*100).toFixed(1);
+    const r25=(d25.salary/d25.sales*100).toFixed(1),r26=(d26.salary/d26.sales*100).toFixed(1);
+    return `<div class="card">
+      <div class="card-title" style="color:${CAT_COLORS[cat]}">${cat}</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        ${[["25年总薪资",fmtMoney(d25.salary),Y25C],["26年总薪资",fmtMoney(d26.salary),Y26C],
+           ["25客服工资",fmtMoney(d25.csSalary),Y25C],["26客服工资",fmtMoney(d26.csSalary),Y26C],
+           ["25团队工资",fmtMoney(d25.teamSalary),Y25C],["26团队工资",fmtMoney(d26.teamSalary),Y26C],
+           ["薪资率变动",`${r25}%→${r26}%`,parseFloat(r26)>parseFloat(r25)?RED:GREEN],
+           ["薪资YoY",`${sign(parseFloat(chg))}${chg}%`,parseFloat(chg)>0?RED:GREEN],
+        ].map(([l,v,c])=>`<div class="stat-box"><div class="stat-label">${l}</div><div class="stat-val" style="color:${c}">${v}</div></div>`).join("")}
+      </div>
+    </div>`;
+  }).join("");
+  return `
+    <div class="grid3 mb16">${cards}</div>
+    <div class="grid2">
+      <div class="card"><div class="card-title">薪资构成（客服 vs 团队）</div><canvas id="c_sal_struct" style="width:100%;height:200px"></canvas></div>
+      <div class="card"><div class="card-title">薪资占销售额比率 (%)</div><canvas id="c_sal_rate" style="width:100%;height:200px"></canvas></div>
+    </div>`;
+}
+
+function renderSalaryCharts(){
+  const c1=document.getElementById("c_sal_struct");
+  if(c1){const W=c1.parentElement.clientWidth||400;const ctx=initCanvas("c_sal_struct",W,200);
+    const data=CATS.flatMap(cat=>[
+      {cat:`${cat} 25`,客服:g25(cat)?.csSalary||0,团队:g25(cat)?.teamSalary||0},
+      {cat:`${cat} 26`,客服:g26(cat)?.csSalary||0,团队:g26(cat)?.teamSalary||0},
+    ]);
+    drawStackedBar(ctx,W,200,data,["客服","团队"],[Y25C,Y26C],{legend:["客服","团队"]});}
+  const c2=document.getElementById("c_sal_rate");
+  if(c2){const W=c2.parentElement.clientWidth||400;const ctx=initCanvas("c_sal_rate",W,200);
+    drawBarChart(ctx,W,200,CATS.map(c=>({cat:c,"25薪资率":g25(c)?+(g25(c).salary/g25(c).sales*100).toFixed(1):0,"26薪资率":g26(c)?+(g26(c).salary/g26(c).sales*100).toFixed(1):0})),["25薪资率","26薪资率"],[Y25C,Y26C],{pct:true,legend:["2025","2026"]});}
+}
+
+// ── 库存分析 ──────────────────────────────────
+function buildInventory(){
+  const inv25=RAW25.reduce((a,r)=>{a[r.cat]=(a[r.cat]||0)+r.stock;return a;},{});
+  const inv26=RAW26.reduce((a,r)=>{a[r.cat]=(a[r.cat]||0)+r.stock;return a;},{});
+  const skus=["成人耳塞","儿童耳塞","鼻夹","A字板","背漂"];
+  const cards=CATS.map(cat=>{
+    const d25=g25(cat),d26=g26(cat);
+    const s25=d25?.stock||0,s26=d26?.stock||0,diff=s26-s25;
+    return `<div class="card">
+      <div class="card-title">${cat} — 库存对比</div>
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:8px">
+        <div><div style="color:${Y25C};font-size:10px">25年</div><div style="color:${Y25C};font-size:20px;font-weight:800">${s25.toLocaleString()}</div></div>
+        <div style="color:#8B949E;font-size:18px">→</div>
+        <div><div style="color:${Y26C};font-size:10px">26年</div><div style="color:${Y26C};font-size:20px;font-weight:800">${s26.toLocaleString()}</div></div>
+      </div>
+      <div style="font-size:11px;color:#8B949E">变动: <span style="color:${diff>0?RED:GREEN};font-weight:700">${sign(diff)}${diff.toLocaleString()} 件</span></div>
+    </div>`;
+  }).join("");
+  return `
+    <div class="grid3 mb16">${cards}</div>
+    <div class="grid2">
+      <div class="card"><div class="card-title">库存数量对比（原始SKU）</div><canvas id="c_inv_bar" style="width:100%;height:200px"></canvas></div>
+      <div class="card"><div class="card-title">库存周转代理指标（销售额/库存）</div><canvas id="c_turnover" style="width:100%;height:200px"></canvas></div>
+    </div>`;
+}
+
+function renderInventoryCharts(){
+  const skus=["成人耳塞","儿童耳塞","鼻夹","A字板","背漂"];
+  const inv25=RAW25.reduce((a,r)=>{a[r.cat]=(a[r.cat]||0)+r.stock;return a;},{});
+  const inv26=RAW26.reduce((a,r)=>{a[r.cat]=(a[r.cat]||0)+r.stock;return a;},{});
+  const c1=document.getElementById("c_inv_bar");
+  if(c1){const W=c1.parentElement.clientWidth||400;const ctx=initCanvas("c_inv_bar",W,200);
+    drawBarChart(ctx,W,200,skus.map(s=>({cat:s,"25库存":inv25[s]||0,"26库存":inv26[s]||0})),["25库存","26库存"],[Y25C,Y26C],{legend:["2025","2026"]});}
+  const c2=document.getElementById("c_turnover");
+  if(c2){const W=c2.parentElement.clientWidth||400;const ctx=initCanvas("c_turnover",W,200);
+    drawBarChart(ctx,W,200,CATS.map(c=>({cat:c,"25周转":g25(c)&&g25(c).stock?+(g25(c).sales/g25(c).stock).toFixed(2):0,"26周转":g26(c)&&g26(c).stock?+(g26(c).sales/g26(c).stock).toFixed(2):0})),["25周转","26周转"],[Y25C,Y26C],{legend:["2025","2026"]});}
+}
+
+// ── 数据明细 ──────────────────────────────────
+let detailYear="全部",detailCat="全部",detailSort="sales",detailDir="desc";
+function buildDetail(){
+  const allData=[...D25.map(r=>({...r,year:2025})),...D26.map(r=>({...r,year:2026}))];
+  const allCats=[...new Set(allData.map(r=>r.cat))];
+  const filtered=allData
+    .filter(r=>detailYear==="全部"||r.year===parseInt(detailYear))
+    .filter(r=>detailCat==="全部"||r.cat===detailCat)
+    .sort((a,b)=>detailDir==="desc"?(b[detailSort]||0)-(a[detailSort]||0):(a[detailSort]||0)-(b[detailSort]||0));
+
+  const cols=[
+    {key:"year",label:"年份"},{key:"cat",label:"品类"},{key:"sales",label:"含税销售额"},
+    {key:"cost",label:"货品成本"},{key:"gp",label:"销售毛利"},{key:"sfTotal",label:"销售费用"},
+    {key:"adv",label:"推广费"},{key:"taxFee",label:"平台费用"},{key:"netGP",label:"净毛利"},
+    {key:"mgmt",label:"管理费用"},{key:"netProfit",label:"净利润"},
+    {key:"logistics",label:"物流"},{key:"salary",label:"工资"},{key:"stock",label:"库存"},
+  ];
+
+  const yearBtns=["全部","2025","2026"].map(y=>`<button class="btn-pill${y===detailYear?" active":""}" onclick="setDetailFilter('year','${y}')">${y}</button>`).join("");
+  const catBtns=["全部",...allCats].map(c=>`<button class="btn-pill${c===detailCat?" active":""}" onclick="setDetailFilter('cat','${c}')">${c}</button>`).join("");
+
+  const thStyle=(k)=>`style="cursor:pointer;color:${detailSort===k?ACCENT:"#8B949E"};text-align:${k==="cat"||k==="year"?"left":"right"}"`;
+  const ths=cols.map(c=>`<th class="${c.key==="cat"||c.key==="year"?"l":"r"}" ${thStyle(c.key)} onclick="setDetailSort('${c.key}')">${c.label}${detailSort===c.key?(detailDir==="desc"?" ↓":" ↑"):""}</th>`).join("");
+
+  const rows=filtered.map((row,i)=>{
+    const bg=i%2===0?"":"background:#0D1117";
+    const cells=cols.map(col=>{
+      let v=row[col.key],cc="#E6EDF3",fw=400;
+      if(col.key==="year")cc=row.year===2025?Y25C:Y26C;
+      else if(col.key==="cat")cc=CAT_COLORS[row.cat]||ACCENT;
+      else if(col.key==="netProfit"){cc=v<0?RED:GREEN;fw=700;}
+      const display=col.key==="year"?row.year:col.key==="cat"?row.cat:col.key==="stock"?(v||0).toLocaleString():fmtMoney(v);
+      return `<td class="${col.key==="cat"||col.key==="year"?"l":"r"} mono" style="color:${cc};font-weight:${fw}">${display}</td>`;
+    }).join("");
+    return `<tr style="${bg}">${cells}</tr>`;
+  }).join("");
+
+  return `
+    <div class="btn-group" style="margin-bottom:8px">
+      <span class="muted" style="font-size:12px;line-height:28px">年份:</span>${yearBtns}
+    </div>
+    <div class="btn-group mb16">
+      <span class="muted" style="font-size:12px;line-height:28px">品类:</span>${catBtns}
+    </div>
+    <div class="card" style="overflow:auto">
+      <table class="tbl" style="min-width:900px">
+        <thead><tr>${ths}</tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+    <div class="muted" style="font-size:11px;margin-top:8px">共 ${filtered.length} 条记录 · 点击列标题可排序</div>`;
+}
+
+function setDetailFilter(type,val){
+  if(type==="year")detailYear=val;else detailCat=val;
+  document.getElementById("page-detail").innerHTML=buildDetail();
+}
+function setDetailSort(key){
+  if(detailSort===key)detailDir=detailDir==="desc"?"asc":"desc";
+  else{detailSort=key;detailDir="desc";}
+  document.getElementById("page-detail").innerHTML=buildDetail();
+}
+
+// ═══════════════════════════════════════════════
+// TABS SYSTEM
+// ═══════════════════════════════════════════════
+const TABS = [
+  {id:"overview",  label:"📊 总览",       build:buildOverview,  render:renderOverviewCharts},
+  {id:"compare",   label:"⚖️ 品类对比",   build:buildCompare,   render:renderCompareCharts},
+  {id:"pnl",       label:"💰 损益分析",   build:buildPnL,       render:renderPnLCharts},
+  {id:"cost",      label:"🏷 费用结构",   build:buildCost,      render:renderCostCharts},
+  {id:"marketing", label:"📣 推广分析",   build:buildMarketing, render:renderMarketingCharts},
+  {id:"profit",    label:"📈 盈利能力",   build:buildProfit,    render:renderProfitCharts},
+  {id:"logistics", label:"🚚 物流仓储",   build:buildLogistics, render:renderLogisticsCharts},
+  {id:"salary",    label:"👥 人员薪资",   build:buildSalary,    render:renderSalaryCharts},
+  {id:"inventory", label:"📦 库存分析",   build:buildInventory, render:renderInventoryCharts},
+  {id:"detail",    label:"📋 数据明细",   build:buildDetail,    render:()=>{}},
+];
+
+let activeTab = "overview";
+
+function switchTab(id) {
+  activeTab = id;
+  // update nav
+  document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active",b.dataset.tab===id));
+  // update pages
+  document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===`page-${id}`));
+  // render charts after DOM is ready
+  const tab = TABS.find(t=>t.id===id);
+  if(tab?.render) setTimeout(tab.render, 50);
+}
+
+// Build nav
+const nav = document.getElementById("nav");
+TABS.forEach(t=>{
+  const btn = document.createElement("button");
+  btn.className = "nav-btn" + (t.id===activeTab?" active":"");
+  btn.dataset.tab = t.id;
+  btn.textContent = t.label;
+  btn.onclick = ()=>switchTab(t.id);
+  nav.appendChild(btn);
+});
+
+// Build pages
+const pagesEl = document.getElementById("pages");
+TABS.forEach(t=>{
+  const pg = document.createElement("div");
+  pg.className = "page" + (t.id===activeTab?" active":"");
+  pg.id = `page-${t.id}`;
+
+  const inner = document.createElement("div");
+  inner.className = "content";
+  inner.innerHTML = `<div class="section-header"><h2>${t.label}</h2><p>数据来源：26年2月海浪品类表单 &amp; 25年2月海浪品类数据表单 · 耳塞=成人+儿童耳塞 · 浮板=A字板+背漂</p></div>` + t.build();
+
+  pg.appendChild(inner);
+  pagesEl.appendChild(pg);
+});
+
+// Initial render
+setTimeout(()=>TABS.find(t=>t.id===activeTab)?.render(), 100);
+
+// Handle window resize
+window.addEventListener("resize", ()=>{
+  const tab = TABS.find(t=>t.id===activeTab);
+  if(tab?.render) setTimeout(tab.render, 100);
+});
+</script>
+</body>
+</html>
